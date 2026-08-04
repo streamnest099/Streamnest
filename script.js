@@ -8,16 +8,64 @@ window.addEventListener("load", () => {
   }, 1800);
 });
 
+const upiId = "nazin@fam";
+const checkoutModal = document.getElementById("checkout-modal");
+const checkoutPlan = document.getElementById("checkout-plan");
+const checkoutAmount = document.getElementById("checkout-amount");
+const paymentQr = document.getElementById("payment-qr");
+let activeOrder = null;
+
+const closeCheckout = () => {
+  checkoutModal?.classList.remove("open");
+  checkoutModal?.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("checkout-open");
+};
+
+document.querySelectorAll("[data-close-checkout]").forEach((button) => {
+  button.addEventListener("click", closeCheckout);
+});
+
 document.querySelectorAll("[data-plan]").forEach((button) => {
   button.addEventListener("click", () => {
-    const duration = button.dataset.durationSelect
-      ? ` - ${document.getElementById(button.dataset.durationSelect).value}`
-      : "";
-    const message = encodeURIComponent(
-      `Hi StreamNest!\n\nI want to buy: ${button.dataset.plan}${duration}\n\nPlease share the payment details.`
-    );
-    window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+    const card = button.closest(".plan-card");
+    const plan = card.querySelector("h3")?.textContent.trim() || button.dataset.plan;
+    const selectedDuration = card.querySelector(".plan-duration")?.value || "";
+    const priceText = selectedDuration || card.querySelector(".price")?.textContent || "";
+    const amount = priceText.match(/\d+/)?.[0] || "0";
+    const duration = selectedDuration.split(" / ")[1] || card.querySelector(".price span")?.textContent.replace("/", "").trim() || "";
+    activeOrder = { plan, amount, duration };
+    checkoutPlan.textContent = duration ? `${plan} · ${duration}` : plan;
+    checkoutAmount.textContent = `₹${amount}`;
+    paymentQr.src = "assets/payment-qr.jpg";
+    paymentQr.alt = `UPI QR code for ${plan}, ₹${amount}`;
+    checkoutModal.classList.add("open");
+    checkoutModal.setAttribute("aria-hidden", "false");
+    document.body.classList.add("checkout-open");
   });
+});
+
+document.getElementById("copy-upi")?.addEventListener("click", async (event) => {
+  try {
+    await navigator.clipboard.writeText(upiId);
+    event.currentTarget.textContent = "Copied";
+    setTimeout(() => { event.currentTarget.textContent = "Copy"; }, 1500);
+  } catch {
+    event.currentTarget.textContent = upiId;
+  }
+});
+
+document.getElementById("payment-confirm")?.addEventListener("click", () => {
+  if (!activeOrder) return;
+  const duration = activeOrder.duration ? ` (${activeOrder.duration})` : "";
+  const message = encodeURIComponent(
+    `Hi StreamNest!\n\nI have paid for: ${activeOrder.plan}${duration}\nAmount: ₹${activeOrder.amount}\nUPI ID: ${upiId}\n\nI will attach my payment screenshot here. Please confirm my order.`
+  );
+  window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+  closeCheckout();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeCheckout();
 });
 
 const jioDuration = document.getElementById("jio-duration");

@@ -41,6 +41,20 @@
   </section>
   <section class="faq" id="faq"><div class="faq-intro"><p class="small-title">HELP CENTER</p><h2>Frequently asked questions.</h2><p>Everything you need to know before choosing a plan.</p></div><div class="faq-list"><details open><summary>How do I buy a plan?<span>+</span></summary><p>Choose a plan, click Buy Now and send the pre-filled WhatsApp message. Our support team will guide you through the next steps.</p></details><details><summary>How long does activation take?<span>+</span></summary><p>Activation time can depend on the selected service. Contact support after payment for the latest activation update.</p></details><details><summary>Can I choose a JioHotstar duration?<span>+</span></summary><p>Yes. Select 1 month, 3 months, 6 months or yearly from the JioHotstar plan dropdown before clicking Buy Now.</p></details><details><summary>What if I need help after ordering?<span>+</span></summary><p>Use the Contact button or reply on WhatsApp with your order details. Support can help with plan-related questions.</p></details></div></section>
   <section class="contact" id="contact"><h2>Need Help?</h2><p>Our support team is ready to help you choose a plan.</p><button>Contact Us</button></section>
-  <footer><div class="logo"><img src="assets/streamnest-logo.png" alt="StreamNest logo"><span>StreamNest</span></div><p>© 2026 StreamNest. All rights reserved.</p></footer><script src="script.js"></script>
+  <footer><div class="logo"><img src="assets/streamnest-logo.png" alt="StreamNest logo"><span>StreamNest</span></div><p>© 2026 StreamNest. All rights reserved.</p></footer>
+  <div class="checkout-modal" id="checkout-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <div class="checkout-backdrop" data-close-checkout></div>
+    <div class="checkout-panel">
+      <button class="checkout-close" type="button" aria-label="Close payment window" data-close-checkout>×</button>
+      <p class="checkout-eyebrow">SECURE UPI PAYMENT</p>
+      <h2 id="checkout-title">Complete your order</h2>
+      <div class="checkout-order"><span id="checkout-plan">Selected plan</span><strong id="checkout-amount">₹0</strong></div>
+      <div class="payment-qr-wrap"><img id="payment-qr" alt="UPI payment QR code"><span>Scan &amp; pay using any UPI app</span></div>
+      <div class="upi-id"><span>UPI ID</span><b id="upi-id-value">Nazin@fam</b><button type="button" id="copy-upi">Copy</button></div>
+      <p class="payment-note">After payment, send the payment screenshot on WhatsApp for confirmation.</p>
+      <button class="payment-confirm" type="button" id="payment-confirm">I've Paid — Send on WhatsApp</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
 <a class="whatsapp-float" href="https://wa.me/918921945009" target="_blank" rel="noopener" aria-label="Chat with StreamNest on WhatsApp"><span>✆</span><b>WhatsApp</b></a>
 </body></html>
