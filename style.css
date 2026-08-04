@@ -274,3 +274,11 @@ footer { border-top:1px solid var(--line); padding:30px; text-align:center; colo
   .section-reveal { transform:translateY(18px); transition-duration:.45s; }
   .whatsapp-float { animation:none; }
 }
+
+/* Never hide the main plans area on phones when opening a #plans link. */
+@media (max-width:600px) {
+  .plans.section-reveal {
+    opacity:1 !important;
+    transform:translateY(0) !important;
+  }
+}
