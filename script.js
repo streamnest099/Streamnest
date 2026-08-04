@@ -146,3 +146,14 @@ revealSections.forEach((section) => {
   section.classList.add("section-reveal");
   sectionObserver.observe(section);
 });
+const revealHashTarget = () => {
+  if (!window.location.hash) return;
+  const target = document.querySelector(window.location.hash);
+  if (target?.classList.contains("section-reveal")) {
+    target.classList.add("section-visible");
+    sectionObserver.unobserve(target);
+  }
+};
+
+revealHashTarget();
+window.addEventListener("hashchange", revealHashTarget);
