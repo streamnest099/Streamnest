@@ -2,8 +2,8 @@
 
 :root { --bg:#06090d; --panel:#11151b; --muted:#9aa1aa; --line:#252b34; --red:#f3131b; }
 * { box-sizing:border-box; margin:0; padding:0; }
-html { scroll-behavior:smooth; }
-body { background:radial-gradient(circle at 50% 20%,#102129 0, var(--bg) 38%); color:#f7f7f8; font-family:Inter,Arial,sans-serif; }
+html { scroll-behavior:smooth; background:#06090d; overscroll-behavior-y:none; }
+body { min-height:100%; background:radial-gradient(circle at 50% 20%,#102129 0, var(--bg) 38%); color:#f7f7f8; font-family:Inter,Arial,sans-serif; }
 body.splash-active { overflow:hidden; }
 .splash-screen { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; background:radial-gradient(circle at center,#2a1014 0,#07090d 42%,#000 100%); transition:opacity .55s ease, visibility .55s ease; }
 .splash-screen.hide { opacity:0; visibility:hidden; }
