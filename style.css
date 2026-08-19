@@ -439,4 +439,52 @@ nav { gap:47px; } nav a { position:relative; padding:13px 11px; color:#ededed; f
   .hero-mascot img {
     mix-blend-mode:screen;
   }
+}/* Fix combo offer cards */
+.combo-logo.app-combo {
+  display:flex;
+  flex-wrap:nowrap;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  height:100px;
+  overflow:hidden;
+}
+
+.combo-logo.app-combo img,
+.combo-logo.app-combo img[src*="jio"] {
+  width:48px;
+  height:48px;
+  object-fit:contain;
+  flex:0 0 auto;
+}
+
+.combo-logo.app-combo b {
+  color:#fff;
+  font-size:18px;
+  line-height:1;
+  flex:0 0 auto;
+}
+
+.combo-logo.app-combo.ultimate {
+  gap:4px;
+}
+
+.combo-logo.app-combo.ultimate img,
+.combo-logo.app-combo.ultimate img[src*="jio"] {
+  width:34px;
+  height:34px;
+}
+
+@media (max-width:700px) {
+  .combo-logo.app-combo img,
+  .combo-logo.app-combo img[src*="jio"] {
+    width:52px;
+    height:52px;
+  }
+
+  .combo-logo.app-combo.ultimate img,
+  .combo-logo.app-combo.ultimate img[src*="jio"] {
+    width:37px;
+    height:37px;
+  }
 }
