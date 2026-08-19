@@ -427,4 +427,16 @@ nav { gap:47px; } nav a { position:relative; padding:13px 11px; color:#ededed; f
     transform:scale(.76);
     transform-origin:top left;
   }
+}@media (max-width:700px) {
+  .hero {
+    background:#000 !important;
+  }
+
+  .hero > .hero-mascot {
+    background:#000;
+  }
+
+  .hero-mascot img {
+    mix-blend-mode:screen;
+  }
 }
