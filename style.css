@@ -342,3 +342,8 @@ nav { gap:47px; } nav a { position:relative; padding:13px 11px; color:#ededed; f
 .hero-mascot img { z-index:-1; }
 @media (max-width:900px) { .hero-mascot { right:10px; width:min(43vw,450px); } }
 @media (max-width:700px) { .hero-mascot { right:auto; width:min(100%,500px); height:auto; aspect-ratio:760 / 735; } }
+
+/* Clean text-led homepage: no cropped mascot or floating OTT artwork. */
+.hero { display:grid; place-items:center; min-height:600px; padding:92px 24px 80px; background:radial-gradient(ellipse at 50% 62%,rgba(155,0,16,.2),transparent 42%),linear-gradient(180deg,#020202,#050102 70%,#020202); }
+.hero-copy { width:min(720px,100%); margin:0; text-align:center; }.hero .small-title { margin-inline:auto; }.hero h1 { max-width:760px; margin-inline:auto; font-size:clamp(58px,7vw,104px); }.description { margin-inline:auto; }.hero-buttons,.happy-customers { justify-content:center; }.ott-float,.hero-mascot { display:none !important; }
+@media (max-width:700px) { .hero { min-height:520px; padding:68px 20px; }.hero h1 { font-size:clamp(50px,14vw,72px); }.happy-customers { margin-top:28px; } }
