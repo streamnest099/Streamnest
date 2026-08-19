@@ -367,3 +367,64 @@ nav { gap:47px; } nav a { position:relative; padding:13px 11px; color:#ededed; f
   .hero > .hero-mascot { position:relative !important; z-index:2; top:auto; right:auto; left:auto; width:100%; max-width:450px; margin:0; justify-self:end; align-self:center; }
   .mascot-speech { top:40px; left:-42px; transform:scale(.86); transform-origin:top right; }
 }
+@media (max-width:700px) {
+  .hero {
+    display:flex !important;
+    flex-direction:column;
+    align-items:center;
+    min-height:0;
+    padding:46px 20px 18px;
+    overflow:hidden;
+  }
+
+  .hero > .hero-copy {
+    position:relative !important;
+    z-index:3;
+    width:100%;
+    max-width:430px;
+    margin:0 !important;
+    text-align:center;
+  }
+
+  .hero > .hero-copy .small-title,
+  .hero > .hero-copy h1,
+  .hero > .hero-copy .description {
+    margin-inline:auto;
+  }
+
+  .hero > .hero-copy h1 {
+    font-size:clamp(46px,13vw,64px);
+    line-height:.94;
+    letter-spacing:-2.5px;
+  }
+
+  .hero > .hero-copy .hero-buttons,
+  .hero > .hero-copy .happy-customers {
+    justify-content:center;
+  }
+
+  .hero > .hero-mascot {
+    position:relative !important;
+    z-index:2;
+    top:auto;
+    right:auto;
+    left:auto;
+    width:min(100%,370px);
+    height:auto;
+    margin:18px auto 0;
+    transform:none;
+  }
+
+  .hero-mascot img {
+    display:block;
+    width:100%;
+    height:auto;
+  }
+
+  .mascot-speech {
+    top:20px;
+    left:0;
+    transform:scale(.76);
+    transform-origin:top left;
+  }
+}
