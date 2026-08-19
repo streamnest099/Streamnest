@@ -36,7 +36,7 @@ document.querySelectorAll("[data-plan]").forEach((button) => {
     activeOrder = { plan, amount, duration };
     checkoutPlan.textContent = duration ? `${plan} · ${duration}` : plan;
     checkoutAmount.textContent = `₹${amount}`;
-    paymentQr.src = "assets/payment-qr.jpg";
+    paymentQr.src = "assets/payment-qr.png";
     paymentQr.alt = `UPI QR code for ${plan}, ₹${amount}`;
     checkoutModal.classList.add("open");
     checkoutModal.setAttribute("aria-hidden", "false");
