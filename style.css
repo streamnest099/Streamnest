@@ -357,3 +357,13 @@ nav { gap:47px; } nav a { position:relative; padding:13px 11px; color:#ededed; f
 .mascot-speech { position:absolute; z-index:2; top:55px; left:-58px; min-width:164px; padding:14px 16px; border:1px solid rgba(238,20,34,.76); border-radius:20px; background:rgba(3,3,3,.94); box-shadow:0 0 24px rgba(238,20,34,.14); color:#f7f7f7; font-size:13px; line-height:1.65; }.mascot-speech::after { content:''; position:absolute; right:27px; bottom:-13px; width:21px; height:21px; border-right:1px solid #eb1020; border-bottom:1px solid #eb1020; background:#030303; transform:rotate(25deg) skew(-10deg); }.mascot-speech b { color:#f01a29; }
 @media (max-width:900px) { .hero { min-height:560px; }.hero-copy { margin-left:38px; width:48%; }.hero-mascot { right:5px; width:min(46vw,430px); top:46px; }.mascot-speech { left:-45px; transform:scale(.88); transform-origin:bottom right; } }
 @media (max-width:700px) { .hero { min-height:0; padding:62px 20px 14px; text-align:center; }.hero-copy { width:100%; margin:0; text-align:center; }.hero .small-title,.hero h1,.description { margin-inline:auto; }.hero-buttons,.happy-customers { justify-content:center; }.hero-mascot { position:relative; top:auto; right:auto; width:min(100%,440px); margin:20px auto -16px; }.mascot-speech { top:32px; left:0; transform:scale(.82); transform-origin:top left; } }
+
+/* Keep hero content and mascot in separate desktop columns. */
+@media (min-width:701px) {
+  .hero { display:grid !important; grid-template-columns:minmax(0,1fr) minmax(380px,470px); align-items:center; column-gap:clamp(38px,7vw,120px); min-height:600px; max-width:1280px; margin:0 auto; padding:54px clamp(36px,6vw,86px); }
+  .hero > .hero-copy { position:relative !important; z-index:4; top:auto; left:auto; width:100%; margin:0 !important; transform:none; text-align:left; }
+  .hero > .hero-copy .small-title,.hero > .hero-copy h1,.hero > .hero-copy .description { margin-left:0; }
+  .hero > .hero-copy .hero-buttons,.hero > .hero-copy .happy-customers { justify-content:flex-start; }
+  .hero > .hero-mascot { position:relative !important; z-index:2; top:auto; right:auto; left:auto; width:100%; max-width:450px; margin:0; justify-self:end; align-self:center; }
+  .mascot-speech { top:40px; left:-42px; transform:scale(.86); transform-origin:top right; }
+}
