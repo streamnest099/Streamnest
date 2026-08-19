@@ -13,7 +13,7 @@
       <div class="loading-line"><span></span></div>
     </div>
   </div>
-  <header><div class="logo"><img src="assets/streamnest-logo.png" alt="StreamNest logo"><span>STREAM<span>NEST</span></span></div><nav><a class="active" href="#home">Home</a><a href="#plans">Plans</a><a href="#how-it-works">How It Works</a><a href="#about">About Us</a><a href="#contact">Contact</a></nav><button class="login-btn">Login / Sign Up</button></header>
+  <header><div class="logo"><img src="assets/streamnest-logo.png" alt="StreamNest logo"><span>STREAM<span>NEST</span></span></div><nav><a class="active" href="#home">Home</a><a href="#plans">Plans</a><a href="#how-it-works">How It Works</a><a href="#about">About Us</a><a href="#contact">Contact</a></nav><button class="login-btn" type="button" aria-haspopup="dialog" aria-controls="auth-modal">Login / Sign Up</button></header>
   <section class="hero" id="home">
     <div class="hero-copy">
       <p class="small-title">PREMIUM ENTERTAINMENT. SMARTER PRICES.</p>
@@ -67,6 +67,19 @@
       <p class="payment-note">After payment, send the payment screenshot on WhatsApp for confirmation.</p>
       <button class="payment-confirm" type="button" id="payment-confirm">I've Paid — Send on WhatsApp</button>
     </div>
+  </div>
+  <div class="auth-modal" id="auth-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <div class="auth-backdrop" data-close-auth></div>
+    <form class="auth-panel" id="auth-form">
+      <button class="auth-close" type="button" aria-label="Close login" data-close-auth>×</button>
+      <p class="auth-eyebrow">WELCOME TO STREAMNEST</p><h2 id="auth-title">Login or create account</h2>
+      <p class="auth-copy">Get updates and manage your streaming plan.</p>
+      <label>Full name<input id="auth-name" type="text" placeholder="Your name" autocomplete="name"></label>
+      <label>Phone or email<input id="auth-contact" type="text" placeholder="Phone number or email" autocomplete="email" required></label>
+      <label>Password<input id="auth-password" type="password" placeholder="Enter password" autocomplete="current-password" required></label>
+      <button class="auth-submit" type="submit">Continue</button>
+      <p class="auth-note" id="auth-note">New here? Enter your details to create an account.</p>
+    </form>
   </div>
   <script src="script.js"></script>
 <a class="whatsapp-float" href="https://wa.me/918921945009" target="_blank" rel="noopener" aria-label="Chat with StreamNest on WhatsApp"><span>✆</span><b>WhatsApp</b></a>

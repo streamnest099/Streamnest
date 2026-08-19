@@ -9,6 +9,12 @@ window.addEventListener("load", () => {
 });
 
 const upiId = "nazin@fam";
+const authModal = document.getElementById("auth-modal");
+const openAuth = () => { authModal?.classList.add("open"); authModal?.setAttribute("aria-hidden", "false"); document.body.classList.add("checkout-open"); document.getElementById("auth-contact")?.focus(); };
+const closeAuth = () => { authModal?.classList.remove("open"); authModal?.setAttribute("aria-hidden", "true"); document.body.classList.remove("checkout-open"); };
+document.querySelector(".login-btn")?.addEventListener("click", openAuth);
+document.querySelectorAll("[data-close-auth]").forEach((button) => button.addEventListener("click", closeAuth));
+document.getElementById("auth-form")?.addEventListener("submit", (event) => { event.preventDefault(); document.getElementById("auth-note").textContent = "Thanks! Your account request is ready. Our support team will contact you shortly."; });
 const checkoutModal = document.getElementById("checkout-modal");
 const checkoutPlan = document.getElementById("checkout-plan");
 const checkoutAmount = document.getElementById("checkout-amount");
@@ -64,9 +70,7 @@ document.getElementById("payment-confirm")?.addEventListener("click", () => {
   closeCheckout();
 });
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") closeCheckout();
-});
+document.addEventListener("keydown", (event) => { if (event.key === "Escape") { closeCheckout(); closeAuth(); } });
 
 const jioDuration = document.getElementById("jio-duration");
 const jioPrice = document.getElementById("jio-price");
