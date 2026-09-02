@@ -1,5 +1,4 @@
 const whatsappNumber = "918921945009";
-
 window.addEventListener("load", () => {
   const splash = document.getElementById("splash-screen");
   setTimeout(() => {
@@ -14,7 +13,6 @@ const openAuth = () => { authModal?.classList.add("open"); authModal?.setAttribu
 const closeAuth = () => { authModal?.classList.remove("open"); authModal?.setAttribute("aria-hidden", "true"); document.body.classList.remove("checkout-open"); };
 document.querySelector(".login-btn")?.addEventListener("click", openAuth);
 document.querySelectorAll("[data-close-auth]").forEach((button) => button.addEventListener("click", closeAuth));
-document.getElementById("auth-form")?.addEventListener("submit", (event) => { event.preventDefault(); document.getElementById("auth-note").textContent = "Thanks! Your account request is ready. Our support team will contact you shortly."; });
 const checkoutModal = document.getElementById("checkout-modal");
 const checkoutPlan = document.getElementById("checkout-plan");
 const checkoutAmount = document.getElementById("checkout-amount");
