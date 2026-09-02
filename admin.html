@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StreamNest Admin</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0b0b;
+      color: white;
+      min-height: 100vh;
+    }
+
+    .login-box {
+      width: 90%;
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 30px;
+      background: #151515;
+      border-radius: 15px;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #333;
+      border-radius: 8px;
+      background: #222;
+      color: white;
+    }
+
+    button {
+      width: 100%;
+      padding: 13px;
+      margin-top: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #e50914;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #dashboard {
+      display: none;
+      padding: 30px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .logout {
+      width: auto;
+      padding: 10px 20px;
+      margin: 0;
+    }
+
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      color: #ff5555;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .card {
+      background: #151515;
+      padding: 25px;
+      border-radius: 12px;
+    }
+
+    .card h3 {
+      color: #aaa;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 28px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- LOGIN -->
+  <div class="login-box" id="loginBox">
+    <h1>StreamNest Admin</h1>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Admin Email"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button id="loginBtn">Login</button>
+
+    <div class="message" id="loginMessage"></div>
+  </div>
+
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+
+    <div class="topbar">
+      <h1>StreamNest Dashboard</h1>
+      <button class="logout" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="stats">
+
+      <div class="card">
+        <h3>Total Orders</h3>
+        <p id="totalOrders">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Paid Orders</h3>
+        <p id="paidOrders">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Pending Orders</h3>
+        <p id="pendingOrders">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Revenue</h3>
+        <p id="totalRevenue">₹0</p>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- FIREBASE -->
+  <script type="module">
+
+    import { initializeApp }
+      from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+    import {
+      getAuth,
+      signInWithEmailAndPassword,
+      onAuthStateChanged,
+      signOut
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+    import {
+      getFirestore,
+      collection,
+      onSnapshot
+    } from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    // YOUR FIREBASE CONFIG
+    const firebaseConfig = {
+      apiKey: "AIzaSyCvdGAqQafHB3WW1dQ-D4IMf5Mf90nWcZM",
+      authDomain: "streamnest-dd011.firebaseapp.com",
+      projectId: "streamnest-dd011",
+      storageBucket: "streamnest-dd011.firebasestorage.app",
+      messagingSenderId: "1044156428651",
+      appId: "1:1044156428651:web:1790764bf0ec5e9cccd2e"
+    };
+
+
+    // INITIALIZE FIREBASE
+    const app = initializeApp(firebaseConfig);
+
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+
+    // LOGIN
+    document.getElementById("loginBtn").addEventListener("click", async () => {
+
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      const message = document.getElementById("loginMessage");
+
+      if (!email || !password) {
+        message.textContent = "Enter email and password.";
+        return;
+      }
+
+      try {
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        message.textContent = "";
+
+      } catch (error) {
+
+        console.error(error);
+
+        message.textContent =
+          "Login failed. Check your email and password.";
+
+      }
+
+    });
+
+
+    // AUTH STATE
+    onAuthStateChanged(auth, (user) => {
+
+      if (user) {
+
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+
+        loadOrders();
+
+      } else {
+
+        document.getElementById("loginBox").style.display = "block";
+        document.getElementById("dashboard").style.display = "none";
+
+      }
+
+    });
+
+
+    // LOGOUT
+    document.getElementById("logoutBtn").addEventListener("click", async () => {
+
+      await signOut(auth);
+
+    });
+
+
+    // LOAD ORDERS
+    function loadOrders() {
+
+      const ordersRef = collection(db, "orders");
+
+      onSnapshot(ordersRef, (snapshot) => {
+
+        let total = 0;
+        let paid = 0;
+        let pending = 0;
+        let revenue = 0;
+
+        snapshot.forEach((doc) => {
+
+          const order = doc.data();
+
+          total++;
+
+          if (order.status === "Paid") {
+            paid++;
+          }
+
+          if (order.status === "Pending") {
+            pending++;
+          }
+
+          if (order.status === "Paid") {
+            revenue += Number(order.amount || 0);
+          }
+
+        });
+
+        document.getElementById("totalOrders").textContent = total;
+        document.getElementById("paidOrders").textContent = paid;
+        document.getElementById("pendingOrders").textContent = pending;
+        document.getElementById("totalRevenue").textContent =
+          "₹" + revenue;
+
+      });
+
+    }
+
+  </script>
+
+</body>
+</html>

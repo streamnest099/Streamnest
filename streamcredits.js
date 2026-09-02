@@ -69,7 +69,6 @@
 
   inject(); render();
   document.querySelector("#credits-reward-grid").addEventListener("click", (event) => { const button = event.target.closest("[data-reward]"); if (button) redeem(button.dataset.reward); });
-  document.querySelector("#payment-confirm")?.addEventListener("click", award);
   new MutationObserver(() => { if (document.querySelector("#checkout-modal")?.classList.contains("open")) checkoutToken += 1; }).observe(document.querySelector("#checkout-modal") || document.body, { attributes: true, attributeFilter: ["class"] });
   document.querySelector("#auth-form")?.addEventListener("submit", () => setTimeout(() => { const contact = document.querySelector("#auth-contact")?.value.trim().toLowerCase(); const name = document.querySelector("#auth-name")?.value.trim(); if (contact) { localStorage.setItem("streamnest:member", JSON.stringify({ contact, name })); render(); } }, 0));
 })();
