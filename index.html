@@ -69,7 +69,60 @@
     </div>
   </div>
   <div class="auth-modal" id="auth-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-    <div class="auth-backdrop" data-close-auth></div>
+  <div class="auth-backdrop" data-close-auth></div>
+  <form class="auth-panel" id="auth-form">
+    <button class="auth-close" type="button" aria-label="Close login" data-close-auth">×</button>
+
+    <p class="auth-eyebrow">WELCOME TO STREAMNEST</p>
+
+    <h2 id="auth-title">Login or create account</h2>
+
+    <p class="auth-copy">
+      Enter your phone number and verify with OTP.
+    </p>
+
+    <label>
+      Full name
+      <input
+        id="auth-name"
+        type="text"
+        placeholder="Your name"
+        autocomplete="name"
+      >
+    </label>
+
+    <label>
+      Phone Number
+      <input
+        id="auth-contact"
+        type="tel"
+        placeholder="+91 9876543210"
+        autocomplete="tel"
+        required
+      >
+    </label>
+
+    <label id="password-label">
+      Password
+      <input
+        id="auth-password"
+        type="password"
+        placeholder="Enter password"
+        autocomplete="current-password"
+      >
+    </label>
+
+    <div id="recaptcha-container"></div>
+
+    <button class="auth-submit" type="submit">
+      Send OTP
+    </button>
+
+    <p class="auth-note" id="auth-note">
+      New here? Enter your phone number to get started.
+    </p>
+  </form>
+</div>
     <form class="auth-panel" id="auth-form">
   <button class="auth-close" type="button" aria-label="Close login" data-close-auth">×</button>
 
