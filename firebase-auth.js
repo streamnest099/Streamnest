@@ -54,6 +54,10 @@ if (authPhone) {
 if (authPassword) {
   authPassword.style.display = "none";
   authPassword.required = false;
+
+  if (authPassword.parentElement) {
+    authPassword.parentElement.style.display = "none";
+  }
 }
 
 if (authName) {
@@ -83,7 +87,7 @@ if (!otpInput) {
 let recaptchaVerifier = null;
 let confirmationResult = null;
 
-function setupRecaptcha() {
+async function setupRecaptcha() {
   if (recaptchaVerifier) {
     return;
   }
@@ -117,9 +121,7 @@ function setupRecaptcha() {
     }
   );
 
-  recaptchaVerifier.render().catch((error) => {
-    console.error("reCAPTCHA render error:", error);
-  });
+  await recaptchaVerifier.render();
 }
 
 authForm?.addEventListener("submit", async (event) => {
@@ -140,6 +142,7 @@ authForm?.addEventListener("submit", async (event) => {
     return;
   }
 
+  // VERIFY OTP
   if (confirmationResult) {
     if (!otp || otp.length !== 6) {
       authNote.textContent = "Please enter the 6-digit OTP.";
@@ -164,14 +167,13 @@ authForm?.addEventListener("submit", async (event) => {
           createdAt: serverTimestamp(),
           lastLoginAt: serverTimestamp()
         });
-
-        console.log("New StreamNest account created.");
       }
 
       authNote.textContent = "Login successful! 🎉";
 
       otpInput.style.display = "none";
       otpInput.value = "";
+
       confirmationResult = null;
 
       setTimeout(() => {
@@ -184,7 +186,7 @@ authForm?.addEventListener("submit", async (event) => {
       console.error("OTP verification error:", error);
 
       authNote.textContent =
-        "Invalid OTP. Please check and try again.";
+        `OTP verification error: ${error.code || error.message}`;
 
     } finally {
       authSubmit.disabled = false;
@@ -194,6 +196,7 @@ authForm?.addEventListener("submit", async (event) => {
     return;
   }
 
+  // SEND OTP
   try {
     authSubmit.disabled = true;
     authSubmit.textContent = "Sending OTP...";
@@ -201,7 +204,7 @@ authForm?.addEventListener("submit", async (event) => {
     authNote.textContent =
       "Please complete the reCAPTCHA...";
 
-    setupRecaptcha();
+    await setupRecaptcha();
 
     confirmationResult = await signInWithPhoneNumber(
       auth,
@@ -223,7 +226,7 @@ authForm?.addEventListener("submit", async (event) => {
     confirmationResult = null;
 
     authNote.textContent =
-      "Could not send OTP. Check your number and try again.";
+      `OTP error: ${error.code || error.message}`;
 
     if (recaptchaVerifier) {
       try {
