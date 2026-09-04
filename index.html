@@ -71,8 +71,14 @@
   <div class="auth-modal" id="auth-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="auth-title">
   <div class="auth-backdrop" data-close-auth></div>
   <form class="auth-panel" id="auth-form">
-    <button class="auth-close" type="button" aria-label="Close login" data-close-auth">×</button>
-
+  <button
+  class="auth-close"
+  type="button"
+  aria-label="Close login"
+  onclick="document.getElementById('auth-modal').classList.remove('open'); document.getElementById('auth-modal').setAttribute('aria-hidden', 'true');"
+>
+  ×
+</button>
     <p class="auth-eyebrow">WELCOME TO STREAMNEST</p>
 
     <h2 id="auth-title">Login or create account</h2>
