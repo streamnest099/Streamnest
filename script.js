@@ -207,3 +207,17 @@ const revealHashTarget = () => {
 
 revealHashTarget();
 window.addEventListener("hashchange", revealHashTarget);
+// Close login / signup modal
+document.addEventListener("click", (event) => {
+  const closeButton = event.target.closest("[data-close-auth]");
+
+  if (!closeButton) return;
+
+  const modal = document.getElementById("auth-modal");
+
+  if (modal) {
+    modal.classList.remove("open");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("checkout-open");
+  }
+});
